@@ -1,19 +1,320 @@
-const P={
- '01':{num:'01',ritual:{en:'SOFTEN',ar:'التليين'},name:{en:'Moroccan Black Soap',ar:'الصابون البلدي المغربي'},sub:{en:'Authentic Moroccan Beldi soap · 200 g',ar:'صابون بلدي مغربي أصلي فاخر · 200 غ'},price:119,img:'assets/img/product-soap.jpg',accent:'#d10a62',desc:{en:'A rich black-soap ritual designed to prepare the skin for the Kessa step, with a dense sensorial texture and a deliberately slow bathing rhythm.',ar:'طقس صابون بلدي غني صُمم لتهيئة البشرة قبل خطوة الليفة، بملمس حسي كثيف وإيقاع استحمام متأنٍ.'},how:{en:'Warm the skin with steam or warm water. Apply a thin layer over damp body skin, avoiding face and sensitive areas. Rinse before exfoliating.',ar:'دفّئي البشرة بالبخار أو الماء الدافئ، ثم وزعي طبقة رقيقة على الجسم المبلل مع تجنب الوجه والمناطق الحساسة، واشطفي قبل التقشير.'},origin:{en:'Moroccan-origin product concept. Supplier, batch, manufacturer and ingredient documentation must be verified before commercial launch.',ar:'مفهوم منتج مغربي المنشأ. يجب توثيق المورد والدفعة والمصنع والمكونات قبل الإطلاق التجاري.'}},
- '02':{num:'02',ritual:{en:'REVEAL',ar:'الكشف'},name:{en:'Moroccan Kessa',ar:'الليفة المغربية الأصلية'},sub:{en:'Premium exfoliating Kessa · 1 glove',ar:'ليفة كيسا مغربية فاخرة للتقشير · قطعة واحدة'},price:89,img:'assets/img/product-kessa.jpg',accent:'#e66c1c',desc:{en:'A purpose-built exfoliating textile for the reveal step. The V2 concept gives the Kessa its own sculptural identity instead of treating it as a generic accessory.',ar:'نسيج تقشير صُمم خصيصًا لمرحلة الكشف. يمنح مفهوم V2 الليفة هوية نحتية مستقلة بدل التعامل معها كإكسسوار عام.'},how:{en:'After rinsing the black soap, use the damp Kessa on wet skin with long controlled strokes. Reduce pressure and frequency for sensitive skin.',ar:'بعد شطف الصابون، استخدمي الليفة المبللة على البشرة الرطبة بحركات طويلة ومتحكم بها، وخففي الضغط والتكرار للبشرة الحساسة.'},origin:{en:'Moroccan Kessa concept. Textile composition and place of manufacture must follow the approved production sample and supplier declaration.',ar:'مفهوم ليفة كيسا مغربية. يجب اعتماد خامة النسيج وبلد التصنيع من عينة الإنتاج ووثيقة المورد.'}},
- '03':{num:'03',ritual:{en:'NOURISH',ar:'التغذية'},name:{en:'Organic Moroccan Argan Oil',ar:'زيت الأرجان المغربي العضوي'},sub:{en:'Pure facial argan oil · 30 ml',ar:'زيت أرجان نقي مخصص للبشرة · 30 مل'},price:189,img:'assets/img/product-argan.jpg',accent:'#0c776c',desc:{en:'The closing ritual: a concentrated facial oil concept designed for a few drops pressed into clean, slightly damp skin.',ar:'الخطوة الختامية: مفهوم زيت مركز للبشرة يُستخدم ببضع قطرات تُضغط على بشرة نظيفة ورطبة قليلًا.'},how:{en:'Warm 2–4 drops between fingertips and press gently onto face and neck. Adjust to skin type and patch test before first use.',ar:'دفّئي 2–4 قطرات بين أطراف الأصابع واضغطي بلطف على الوجه والرقبة. عدلي الكمية حسب نوع البشرة واختبريه على منطقة صغيرة قبل أول استخدام.'},origin:{en:'Organic Moroccan argan positioning requires documentary proof of organic certification, Moroccan origin and purity before launch.',ar:'يتطلب توصيف زيت الأرجان المغربي العضوي إثبات الاعتماد العضوي والمنشأ المغربي والنقاء قبل الإطلاق.'}}
-};
-const T={en:{lang:'العربية',shop:'Shop',ritual:'Ritual',origin:'Origin',heroK:'Saudi founded · Moroccan rooted',heroT:'Beauty is not added.<br><em>It is revealed.</em>',heroL:'Three Moroccan essentials rebuilt as one precise, contemporary ritual.',shopBtn:'Shop the ritual',originBtn:'See the proof system',collectionK:'Opening collection',collectionT:'Three products. One reveal.',collectionN:'A deliberately narrow launch: preparation, exfoliation and nourishment. Every product earns its place.',add:'Add to bag',quick:'Discover',ritualK:'The MORZÉA system',ritualT:'SOFTEN. REVEAL. NOURISH.',r1:'Prepare with warmth and the dense tactile richness of Moroccan black soap.',r2:'Controlled friction reveals what the first step has softened.',r3:'A few drops complete the ritual on clean, slightly damp skin.',originK:'MORZÉA Origin Passport',originT:'Origin is not decoration.<br>Origin is proof.',originP:'The brand is designed to connect each commercial batch to supplier, place, date, ingredient specification, available certification and quality documentation.',house:'Brand house',houseV:'Founded in Saudi Arabia',root:'Product root',rootV:'Moroccan ritual & sourcing',standard:'Standard',standardV:'No origin claim without evidence',newsletter:'Enter the private list',newsP:'Launch notes, ritual education and provenance stories. No noise.',email:'Email address',bag:'Your ritual bag',empty:'Your bag is empty.',subtotal:'Subtotal',checkout:'Checkout preview',prototype:'Commerce backend is not connected in this preview.',details:'Product detail',how:'How to use',proof:'Origin & verification',care:'Care & launch note',careText:'External-use prototype. Final warnings, INCI/material composition, organic certification, origin documentation and SFDA-required labeling must be approved before commercial sale.',added:'Added to bag'},ar:{lang:'EN',shop:'المتجر',ritual:'الطقس',origin:'الأصل',heroK:'تأسست في السعودية · جذورها في المغرب',heroT:'الجمال لا نضيفه.<br><em>نكشفه.</em>',heroL:'ثلاثة أساسيات مغربية أُعيد بناؤها كطقس واحد دقيق ومعاصر.',shopBtn:'تسوّق الطقس',originBtn:'اكتشف نظام الإثبات',collectionK:'مجموعة الإطلاق',collectionT:'ثلاثة منتجات. كشف واحد.',collectionN:'إطلاق متعمد الصغر: تهيئة وتقشير وتغذية. كل منتج يستحق مكانه.',add:'أضف إلى الحقيبة',quick:'اكتشف',ritualK:'نظام MORZÉA',ritualT:'تليين. كشف. تغذية.',r1:'تهيئة بالدفء والملمس الكثيف للصابون البلدي المغربي.',r2:'احتكاك متحكم يكشف ما قامت الخطوة الأولى بتليينه.',r3:'بضع قطرات تكمل الطقس على بشرة نظيفة ورطبة قليلًا.',originK:'جواز منشأ MORZÉA',originT:'الأصل ليس ديكورًا.<br>الأصل هو الدليل.',originP:'صُممت العلامة لربط كل دفعة تجارية بالمورد والمكان والتاريخ ومواصفات المكونات والشهادات المتاحة ووثائق الجودة.',house:'الدار التجارية',houseV:'تأسست في المملكة العربية السعودية',root:'جذر المنتج',rootV:'الطقس والتوريد المغربي',standard:'المعيار',standardV:'لا ادعاء منشأ بلا دليل',newsletter:'ادخل إلى القائمة الخاصة',newsP:'ملاحظات الإطلاق، تثقيف الطقوس وقصص المنشأ. بلا ضجيج.',email:'البريد الإلكتروني',bag:'حقيبة الطقس',empty:'الحقيبة فارغة.',subtotal:'الإجمالي',checkout:'معاينة الدفع',prototype:'نظام التجارة غير متصل في هذه النسخة.',details:'تفاصيل المنتج',how:'طريقة الاستخدام',proof:'الأصل والتحقق',care:'العناية وملاحظة الإطلاق',careText:'نموذج للاستخدام الخارجي. يجب اعتماد التحذيرات وقائمة INCI/الخامة والاعتماد العضوي ووثائق المنشأ ومتطلبات SFDA قبل البيع التجاري.',added:'تمت الإضافة إلى الحقيبة'}};
-let lang=localStorage.getItem('morzea-lang')||'en',cart=JSON.parse(localStorage.getItem('morzea-cart')||'{}');
-const tr=k=>T[lang][k]||k; const money=n=>`${n} SAR`;
-function applyLang(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-t]').forEach(e=>e.innerHTML=tr(e.dataset.t));document.querySelectorAll('[data-ph]').forEach(e=>e.placeholder=tr(e.dataset.ph));document.querySelectorAll('.lang').forEach(e=>e.textContent=tr('lang'));renderProducts();renderCart()}
-function renderProducts(){const g=document.querySelector('#products');if(!g)return;g.innerHTML=Object.values(P).map(p=>`<article class="card" style="--accent:${p.accent}"><button class="visual" onclick="openProduct('${p.num}')" aria-label="${tr('quick')}"><span class="num">${p.num}</span><img src="${p.img}" alt="${p.name[lang]}"></button><div class="body"><div class="ritual-label">RITUAL ${p.num} · ${p.ritual[lang]}</div><h3 class="name">${p.name[lang]}</h3><div class="sub">${p.sub[lang]}</div><div class="meta"><span class="price">${money(p.price)}</span><div><button class="small" onclick="add('${p.num}')">${tr('add')}</button></div></div></div></article>`).join('')}
-function add(id){cart[id]=(cart[id]||0)+1;saveCart();showToast(tr('added'))}
-function removeItem(id){delete cart[id];saveCart()}
-function saveCart(){localStorage.setItem('morzea-cart',JSON.stringify(cart));renderCart()}
-function renderCart(){const c=Object.values(cart).reduce((a,b)=>a+b,0);document.querySelectorAll('.count').forEach(e=>e.textContent=c);const body=document.querySelector('#cartBody'),tot=document.querySelector('#subtotal');if(!body)return;if(!c){body.innerHTML=`<p style="color:var(--muted)">${tr('empty')}</p>`;tot.textContent=money(0);return}let sum=0;body.innerHTML=Object.entries(cart).map(([id,q])=>{const p=P[id];sum+=p.price*q;return `<div class="cart-item"><img src="${p.img}"><div><b>${p.name[lang]}</b><div style="font-size:11px;color:var(--muted)">${q} × ${money(p.price)}</div></div><button class="icon" onclick="removeItem('${id}')">×</button></div>`}).join('');tot.textContent=money(sum)}
-function openCart(){document.querySelector('#overlay').classList.add('open');document.querySelector('#drawer').classList.add('open');document.body.classList.add('lock')}
-function closeAll(){document.querySelector('#overlay').classList.remove('open');document.querySelector('#drawer').classList.remove('open');document.querySelector('#productModal').classList.remove('open');document.body.classList.remove('lock')}
-function openProduct(id){const p=P[id],m=document.querySelector('#productModal');m.innerHTML=`<button class="close" onclick="closeAll()">×</button><div class="modal-grid"><div class="modal-media"><img src="${p.img}" alt="${p.name[lang]}"></div><div class="modal-copy"><div class="ritual-label">RITUAL ${p.num} · ${p.ritual[lang]}</div><h2 class="title" style="font-size:46px">${p.name[lang]}</h2><p>${p.desc[lang]}</p><div class="price" style="margin:22px 0">${money(p.price)}</div><button class="btn primary" onclick="add('${id}');closeAll()">${tr('add')}</button><div class="acc"><button><span>${tr('how')}</span><span>+</span></button><div class="content">${p.how[lang]}</div><button><span>${tr('proof')}</span><span>+</span></button><div class="content">${p.origin[lang]}</div><button><span>${tr('care')}</span><span>+</span></button><div class="content">${tr('careText')}</div></div></div></div>`;document.querySelector('#overlay').classList.add('open');m.classList.add('open');document.body.classList.add('lock')}
-function showToast(s){const e=document.querySelector('#toast');e.textContent=s;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1600)}
-document.addEventListener('DOMContentLoaded',()=>{applyLang();document.querySelectorAll('.lang').forEach(b=>b.onclick=()=>{lang=lang==='en'?'ar':'en';localStorage.setItem('morzea-lang',lang);applyLang()});document.querySelectorAll('[data-cart]').forEach(b=>b.onclick=openCart);document.querySelector('#overlay').onclick=closeAll;document.addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});document.querySelector('#news').onsubmit=e=>{e.preventDefault();showToast(lang==='ar'?'تم تسجيل اهتمامك':'Interest captured');e.target.reset()}})
+const products = [
+  {
+    id: "soap",
+    order: "01",
+    badge: "RITUAL 01 · SOFTEN",
+    title: "Moroccan Black Soap",
+    subtitle: "Authentic Moroccan beldi soap · 200 g",
+    price: 110,
+    description:
+      "A premium visual presentation of MORZÉA Moroccan Black Soap with multiple still-life and usage images that highlight the jar, texture, finish, and ritual context.",
+    images: [
+      {
+        src: "assets/img/morzea-soap-01.jpg",
+        alt: "MORZÉA Moroccan Black Soap hero packshot"
+      },
+      {
+        src: "assets/img/morzea-soap-02.jpg",
+        alt: "MORZÉA Moroccan Black Soap open texture view"
+      },
+      {
+        src: "assets/img/morzea-soap-03.jpg",
+        alt: "Model using MORZÉA Moroccan Black Soap"
+      }
+    ],
+    pills: ["3 Views", "Packshot", "Texture", "Usage"]
+  },
+  {
+    id: "kessa",
+    order: "02",
+    badge: "RITUAL 02 · REVEAL",
+    title: "Moroccan Kessa",
+    subtitle: "Premium exfoliating Kessa · 1 glove",
+    price: 65,
+    description:
+      "A refined multi-angle presentation of the MORZÉA Kessa glove showing the box, the textile detail, embroidered finish, and a ritual usage image with model.",
+    images: [
+      {
+        src: "assets/img/morzea-kessa-01.jpg",
+        alt: "MORZÉA Moroccan Kessa hero packshot"
+      },
+      {
+        src: "assets/img/morzea-kessa-02.jpg",
+        alt: "MORZÉA Moroccan Kessa detailed product view"
+      },
+      {
+        src: "assets/img/morzea-kessa-03.jpg",
+        alt: "Model using MORZÉA Moroccan Kessa"
+      }
+    ],
+    pills: ["3 Views", "Packaging", "Texture", "Usage"]
+  },
+  {
+    id: "argan",
+    order: "03",
+    badge: "RITUAL 03 · NOURISH",
+    title: "Organic Argan Oil",
+    subtitle: "Pure facial argan oil · 30 ml",
+    price: 180,
+    description:
+      "A cinematic gallery for MORZÉA Organic Argan Oil highlighting the bottle design, premium materials, glass detail, dropper application, and luxury skincare ritual usage.",
+    images: [
+      {
+        src: "assets/img/morzea-argan-01.jpg",
+        alt: "MORZÉA Organic Argan Oil hero packshot"
+      },
+      {
+        src: "assets/img/morzea-argan-02.jpg",
+        alt: "MORZÉA Organic Argan Oil open bottle detailed view"
+      },
+      {
+        src: "assets/img/morzea-argan-03.jpg",
+        alt: "Model using MORZÉA Organic Argan Oil"
+      }
+    ],
+    pills: ["3 Views", "Bottle", "Detail", "Usage"]
+  }
+];
+
+const productsContainer = document.getElementById("products");
+const overlay = document.getElementById("overlay");
+const productModal = document.getElementById("productModal");
+const modalMainImage = document.getElementById("modalMainImage");
+const modalBadge = document.getElementById("modalBadge");
+const modalTitle = document.getElementById("modalTitle");
+const modalSubtitle = document.getElementById("modalSubtitle");
+const modalPrice = document.getElementById("modalPrice");
+const modalDescription = document.getElementById("modalDescription");
+const modalThumbs = document.getElementById("modalThumbs");
+const modalClose = document.getElementById("modalClose");
+const modalAddBtn = document.getElementById("modalAddBtn");
+const heroBagCount = document.getElementById("heroBagCount");
+const heroBagBtn = document.getElementById("heroBagBtn");
+const toast = document.getElementById("toast");
+
+let cartCount = 0;
+let activeProduct = null;
+let activeModalImageIndex = 0;
+
+function formatSAR(value) {
+  return `${value} SAR`;
+}
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2200);
+}
+
+function updateBagCount() {
+  heroBagCount.textContent = cartCount;
+}
+
+function addToBag(product) {
+  cartCount += 1;
+  updateBagCount();
+  showToast(`${product.title} added to bag`);
+}
+
+function renderProducts() {
+  productsContainer.innerHTML = products.map((product) => {
+    const thumbs = product.images.map((img, index) => `
+      <button
+        class="product-thumb ${index === 0 ? "active" : ""}"
+        type="button"
+        data-product-id="${product.id}"
+        data-image-index="${index}"
+        aria-label="Show image ${index + 1} for ${product.title}"
+      >
+        <img src="${img.src}" alt="${img.alt}">
+      </button>
+    `).join("");
+
+    const pills = product.pills.map(item => `
+      <span class="meta-pill">${item}</span>
+    `).join("");
+
+    return `
+      <article class="product-card" data-card-id="${product.id}">
+        <div class="product-card__media">
+          <div class="product-order">${product.order}</div>
+
+          <div class="product-card__hero">
+            <img
+              src="${product.images[0].src}"
+              alt="${product.images[0].alt}"
+              class="product-main-image"
+              data-main-image="${product.id}"
+            >
+          </div>
+
+          <div class="product-thumbs">
+            ${thumbs}
+          </div>
+        </div>
+
+        <div class="product-card__body">
+          <div class="product-badge">${product.badge}</div>
+          <h3 class="product-card__title">${product.title}</h3>
+          <p class="product-card__subtitle">${product.subtitle}</p>
+
+          <div class="product-card__meta">
+            ${pills}
+          </div>
+
+          <div class="product-card__footer">
+            <div class="product-price">${formatSAR(product.price)}</div>
+
+            <div class="product-card__actions">
+              <button
+                class="btn btn-dark btn-small"
+                type="button"
+                data-add-id="${product.id}"
+              >
+                Add to bag
+              </button>
+
+              <button
+                class="btn btn-small"
+                type="button"
+                data-view-id="${product.id}"
+              >
+                View details
+              </button>
+            </div>
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  bindProductEvents();
+}
+
+function bindProductEvents() {
+  document.querySelectorAll(".product-thumb").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const productId = btn.dataset.productId;
+      const imageIndex = Number(btn.dataset.imageIndex);
+      switchCardImage(productId, imageIndex);
+    });
+  });
+
+  document.querySelectorAll("[data-add-id]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const product = products.find(item => item.id === btn.dataset.addId);
+      addToBag(product);
+    });
+  });
+
+  document.querySelectorAll("[data-view-id]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const product = products.find(item => item.id === btn.dataset.viewId);
+      openModal(product, 0);
+    });
+  });
+
+  document.querySelectorAll("[data-main-image]").forEach((img) => {
+    img.addEventListener("click", () => {
+      const product = products.find(item => item.id === img.dataset.mainImage);
+      openModal(product, 0);
+    });
+  });
+}
+
+function switchCardImage(productId, imageIndex) {
+  const product = products.find(item => item.id === productId);
+  if (!product) return;
+
+  const card = document.querySelector(`[data-card-id="${productId}"]`);
+  if (!card) return;
+
+  const mainImage = card.querySelector(".product-main-image");
+  mainImage.src = product.images[imageIndex].src;
+  mainImage.alt = product.images[imageIndex].alt;
+
+  card.querySelectorAll(".product-thumb").forEach((thumb) => {
+    thumb.classList.toggle("active", Number(thumb.dataset.imageIndex) === imageIndex);
+  });
+}
+
+function openModal(product, imageIndex = 0) {
+  activeProduct = product;
+  activeModalImageIndex = imageIndex;
+
+  modalBadge.textContent = product.badge;
+  modalTitle.textContent = product.title;
+  modalSubtitle.textContent = product.subtitle;
+  modalPrice.textContent = formatSAR(product.price);
+  modalDescription.textContent = product.description;
+
+  renderModalImage();
+  renderModalThumbs();
+
+  overlay.classList.add("open");
+  productModal.classList.add("open");
+  productModal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function renderModalImage() {
+  if (!activeProduct) return;
+  const img = activeProduct.images[activeModalImageIndex];
+  modalMainImage.src = img.src;
+  modalMainImage.alt = img.alt;
+}
+
+function renderModalThumbs() {
+  if (!activeProduct) return;
+
+  modalThumbs.innerHTML = activeProduct.images.map((img, index) => `
+    <button
+      class="modal-thumb ${index === activeModalImageIndex ? "active" : ""}"
+      type="button"
+      data-modal-index="${index}"
+      aria-label="Show modal image ${index + 1}"
+    >
+      <img src="${img.src}" alt="${img.alt}">
+    </button>
+  `).join("");
+
+  modalThumbs.querySelectorAll("[data-modal-index]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      activeModalImageIndex = Number(btn.dataset.modalIndex);
+      renderModalImage();
+      renderModalThumbs();
+    });
+  });
+}
+
+function closeModal() {
+  overlay.classList.remove("open");
+  productModal.classList.remove("open");
+  productModal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+  activeProduct = null;
+}
+
+overlay.addEventListener("click", closeModal);
+modalClose.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && productModal.classList.contains("open")) {
+    closeModal();
+  }
+});
+
+modalAddBtn.addEventListener("click", () => {
+  if (!activeProduct) return;
+  addToBag(activeProduct);
+});
+
+heroBagBtn.addEventListener("click", () => {
+  showToast(`Bag items: ${cartCount}`);
+});
+
+renderProducts();
+updateBagCount();
