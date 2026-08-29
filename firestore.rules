@@ -17,51 +17,47 @@ service cloud.firestore {
         && resource.data.uid == request.auth.uid;
     }
 
-    // MORZÉA visitor/session record
+    // One visitor/session record. Client may create and update only its own UID.
     match /MORZEA_Visitors/{sessionId} {
       allow create: if ownsIncoming();
-
       allow update: if ownsExisting()
         && request.resource.data.uid == resource.data.uid;
-
       allow read, delete: if false;
     }
 
-    // Interaction / analytics events
+    // Append-only interaction telemetry.
     match /MORZEA_Events/{eventId} {
       allow create: if ownsIncoming();
       allow read, update, delete: if false;
     }
 
-    // Voluntary customer leads / newsletter
+    // Newsletter / future voluntary contact captures.
     match /MORZEA_Leads/{leadId} {
       allow create: if ownsIncoming();
       allow read, update, delete: if false;
     }
 
-    // AI concierge session metadata
+    // AI session metadata.
     match /MORZEA_AI_Sessions/{sessionId} {
       allow create: if ownsIncoming();
-
       allow update: if ownsExisting()
         && request.resource.data.uid == resource.data.uid;
-
       allow read, delete: if false;
     }
 
-    // AI conversation messages
+    // Append-only AI conversation logs.
     match /MORZEA_AI_Messages/{messageId} {
       allow create: if ownsIncoming();
       allow read, update, delete: if false;
     }
 
-    // Front-end errors
+    // Frontend errors, append-only.
     match /MORZEA_Errors/{errorId} {
       allow create: if ownsIncoming();
       allow read, update, delete: if false;
     }
 
-    // Everything else denied
+    // Deny everything else by default.
     match /{document=**} {
       allow read, write: if false;
     }
