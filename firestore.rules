@@ -1,65 +1,183 @@
 rules_version = '2';
 
 service cloud.firestore {
+
   match /databases/{database}/documents {
 
+
+    /*
+     * AUTH HELPERS
+     */
+
     function signedIn() {
+
       return request.auth != null;
+
     }
+
 
     function ownsIncoming() {
+
       return signedIn()
-        && request.resource.data.uid == request.auth.uid;
+
+        && request.resource.data.uid
+           == request.auth.uid;
+
     }
+
 
     function ownsExisting() {
+
       return signedIn()
-        && resource.data.uid == request.auth.uid;
+
+        && resource.data.uid
+           == request.auth.uid;
+
     }
 
-    // One visitor/session record. Client may create and update only its own UID.
+
+
+    /*
+     * MORZÉA VISITORS
+     */
+
     match /MORZEA_Visitors/{sessionId} {
-      allow create: if ownsIncoming();
-      allow update: if ownsExisting()
-        && request.resource.data.uid == resource.data.uid;
-      allow read, delete: if false;
+
+      allow create:
+        if ownsIncoming();
+
+
+      allow update:
+
+        if ownsExisting()
+
+        && request.resource.data.uid
+           == resource.data.uid;
+
+
+      allow read, delete:
+        if false;
+
     }
 
-    // Append-only interaction telemetry.
+
+
+    /*
+     * MORZÉA EVENTS
+     */
+
     match /MORZEA_Events/{eventId} {
-      allow create: if ownsIncoming();
-      allow read, update, delete: if false;
+
+      allow create:
+        if ownsIncoming();
+
+
+      allow read,
+            update,
+            delete:
+        if false;
+
     }
 
-    // Newsletter / future voluntary contact captures.
+
+
+    /*
+     * MORZÉA LEADS
+     */
+
     match /MORZEA_Leads/{leadId} {
-      allow create: if ownsIncoming();
-      allow read, update, delete: if false;
+
+      allow create:
+        if ownsIncoming();
+
+
+      allow read,
+            update,
+            delete:
+        if false;
+
     }
 
-    // AI session metadata.
+
+
+    /*
+     * MORZÉA AI SESSIONS
+     */
+
     match /MORZEA_AI_Sessions/{sessionId} {
-      allow create: if ownsIncoming();
-      allow update: if ownsExisting()
-        && request.resource.data.uid == resource.data.uid;
-      allow read, delete: if false;
+
+      allow create:
+        if ownsIncoming();
+
+
+      allow update:
+
+        if ownsExisting()
+
+        && request.resource.data.uid
+           == resource.data.uid;
+
+
+      allow read,
+            delete:
+        if false;
+
     }
 
-    // Append-only AI conversation logs.
+
+
+    /*
+     * MORZÉA AI MESSAGES
+     */
+
     match /MORZEA_AI_Messages/{messageId} {
-      allow create: if ownsIncoming();
-      allow read, update, delete: if false;
+
+      allow create:
+        if ownsIncoming();
+
+
+      allow read,
+            update,
+            delete:
+        if false;
+
     }
 
-    // Frontend errors, append-only.
+
+
+    /*
+     * MORZÉA FRONTEND ERRORS
+     */
+
     match /MORZEA_Errors/{errorId} {
-      allow create: if ownsIncoming();
-      allow read, update, delete: if false;
+
+      allow create:
+        if ownsIncoming();
+
+
+      allow read,
+            update,
+            delete:
+        if false;
+
     }
 
-    // Deny everything else by default.
+
+
+    /*
+     * DEFAULT DENY
+     *
+     * Anything not explicitly allowed above
+     * is blocked.
+     */
+
     match /{document=**} {
-      allow read, write: if false;
+
+      allow read, write:
+        if false;
+
     }
+
   }
+
 }
