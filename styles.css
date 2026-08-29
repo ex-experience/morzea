@@ -2175,3 +2175,365 @@
     transform: none !important;
   }
 }
+
+
+/* ============================================================
+   MORZÉA — INTELLIGENT CONCIERGE / FIREBASE AI
+   Additive only. Existing site styles remain unchanged.
+   ============================================================ */
+
+.morzea-ai {
+  position: fixed;
+  right: max(18px, env(safe-area-inset-right));
+  bottom: max(18px, env(safe-area-inset-bottom));
+  z-index: 150;
+  font-family: var(--sans, Inter, sans-serif);
+}
+
+.morzea-ai__launcher {
+  width: min(310px, calc(100vw - 36px));
+  min-height: 62px;
+  display: grid;
+  grid-template-columns: 42px 1fr 9px;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 14px 9px 10px;
+  border: 1px solid rgba(226,189,125,.48);
+  border-radius: 999px;
+  background: rgba(35,17,28,.94);
+  color: #fff8ef;
+  box-shadow: 0 18px 50px rgba(15,7,12,.28);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.morzea-ai__mark {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(226,189,125,.45);
+  border-radius: 50%;
+  color: #e2bd7d;
+  font-family: var(--serif, Georgia, serif);
+  font-size: 25px;
+}
+
+.morzea-ai__launcher-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.morzea-ai__launcher-copy b {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: .14em;
+}
+
+.morzea-ai__launcher-copy small {
+  margin-top: 2px;
+  color: #cdbec2;
+  font-size: 9px;
+}
+
+.morzea-ai__status {
+  width: 7px;
+  height: 7px;
+  border-radius: 99px;
+  background: #79bf91;
+  box-shadow: 0 0 0 4px rgba(121,191,145,.10);
+}
+
+.morzea-ai__panel {
+  position: absolute;
+  right: 0;
+  bottom: 74px;
+  width: min(430px, calc(100vw - 36px));
+  height: min(680px, calc(100svh - 120px));
+  display: grid;
+  grid-template-rows: auto 1fr auto auto auto;
+  overflow: hidden;
+  border: 1px solid rgba(226,189,125,.35);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 84% 0%, rgba(92,40,65,.42), transparent 32%),
+    linear-gradient(180deg,#2a1421 0%,#190c13 62%,#13090e 100%);
+  color: #fff8ef;
+  box-shadow: 0 36px 100px rgba(15,7,12,.42);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(14px) scale(.985);
+  transform-origin: bottom right;
+  transition: opacity .28s ease, transform .28s ease;
+}
+
+.morzea-ai.is-open .morzea-ai__panel {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+}
+
+.morzea-ai__head {
+  min-height: 104px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 23px 22px 18px;
+  border-bottom: 1px solid rgba(226,189,125,.17);
+}
+
+.morzea-ai__eyebrow {
+  color: #d7ad70;
+  font-size: 7px;
+  font-weight: 600;
+  letter-spacing: .17em;
+}
+
+.morzea-ai__head h2 {
+  margin: 4px 0 0;
+  font-family: var(--serif, Georgia, serif);
+  font-size: 31px;
+  font-weight: 400;
+  letter-spacing: .09em;
+}
+
+.morzea-ai__head p {
+  margin: 2px 0 0;
+  color: #bdaeb3;
+  font-size: 10px;
+}
+
+.morzea-ai__close {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 auto;
+  border: 1px solid rgba(255,255,255,.14);
+  border-radius: 50%;
+  background: transparent;
+  color: #fff;
+  font-size: 21px;
+}
+
+.morzea-ai__messages {
+  min-height: 0;
+  overflow: auto;
+  padding: 20px 18px 16px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(226,189,125,.35) transparent;
+}
+
+.morzea-ai__message {
+  margin: 0 0 14px;
+}
+
+.morzea-ai__message--user {
+  padding-left: 15%;
+}
+
+.morzea-ai__message--assistant {
+  padding-right: 8%;
+}
+
+.morzea-ai__bubble {
+  white-space: pre-wrap;
+  word-break: break-word;
+  padding: 13px 14px;
+  border-radius: 15px;
+  font-size: 12px;
+  line-height: 1.65;
+}
+
+.morzea-ai__message--assistant .morzea-ai__bubble {
+  border: 1px solid rgba(226,189,125,.15);
+  background: rgba(255,255,255,.045);
+  color: #f3e9e5;
+}
+
+.morzea-ai__message--user .morzea-ai__bubble {
+  background: #d0a15f;
+  color: #211019;
+}
+
+.morzea-ai__message.is-thinking .morzea-ai__bubble {
+  color: #c5b5bb;
+  font-style: italic;
+}
+
+.morzea-ai__sources {
+  margin-top: 7px;
+  padding: 0 4px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.morzea-ai__sources > span {
+  width: 100%;
+  color: #9f8e94;
+  font-size: 7px;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+}
+
+.morzea-ai__sources a {
+  max-width: 100%;
+  padding: 5px 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid rgba(226,189,125,.18);
+  border-radius: 999px;
+  color: #d9ba8a;
+  font-size: 8px;
+}
+
+.morzea-ai__quick {
+  padding: 7px 18px 12px;
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+}
+
+.morzea-ai__quick button {
+  flex: 0 0 auto;
+  max-width: 230px;
+  padding: 8px 10px;
+  border: 1px solid rgba(226,189,125,.19);
+  border-radius: 999px;
+  background: transparent;
+  color: #d7c8cc;
+  font-size: 8px;
+  line-height: 1.25;
+}
+
+.morzea-ai__form {
+  margin: 0 16px;
+  min-height: 58px;
+  display: grid;
+  grid-template-columns: 1fr 44px;
+  gap: 7px;
+  align-items: end;
+  padding: 7px;
+  border: 1px solid rgba(226,189,125,.27);
+  border-radius: 17px;
+  background: rgba(255,255,255,.045);
+}
+
+.morzea-ai__input {
+  width: 100%;
+  max-height: 110px;
+  resize: none;
+  padding: 9px 8px;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #fff8ef;
+  font-family: inherit;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.morzea-ai__input::placeholder {
+  color: #8f7e85;
+}
+
+.morzea-ai__send {
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 13px;
+  background: #d0a15f;
+  color: #24111b;
+  font-size: 20px;
+}
+
+.morzea-ai__send:disabled {
+  opacity: .45;
+  cursor: wait;
+}
+
+.morzea-ai__privacy {
+  margin: 10px 18px 14px;
+  color: #806f76;
+  font-size: 7px;
+  line-height: 1.5;
+}
+
+[dir="rtl"] .morzea-ai {
+  right: auto;
+  left: max(18px, env(safe-area-inset-left));
+}
+
+[dir="rtl"] .morzea-ai__panel {
+  right: auto;
+  left: 0;
+  transform-origin: bottom left;
+}
+
+[dir="rtl"] .morzea-ai__launcher-copy {
+  align-items: flex-end;
+  text-align: right;
+}
+
+[dir="rtl"] .morzea-ai__message--user {
+  padding-left: 0;
+  padding-right: 15%;
+}
+
+[dir="rtl"] .morzea-ai__message--assistant {
+  padding-right: 0;
+  padding-left: 8%;
+}
+
+@media (max-width: 560px) {
+  .morzea-ai {
+    right: 12px;
+    bottom: 12px;
+  }
+
+  [dir="rtl"] .morzea-ai {
+    right: auto;
+    left: 12px;
+  }
+
+  .morzea-ai__launcher {
+    width: 58px;
+    min-height: 58px;
+    grid-template-columns: 1fr;
+    padding: 7px;
+  }
+
+  .morzea-ai__launcher-copy,
+  .morzea-ai__status {
+    display: none;
+  }
+
+  .morzea-ai__mark {
+    width: 42px;
+    height: 42px;
+    margin: auto;
+  }
+
+  .morzea-ai__panel {
+    position: fixed;
+    inset: auto 10px 78px 10px;
+    width: auto;
+    height: min(650px, calc(100svh - 100px));
+    border-radius: 20px;
+  }
+
+  [dir="rtl"] .morzea-ai__panel {
+    left: 10px;
+    right: 10px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .morzea-ai__panel {
+    transition: none;
+  }
+}
+

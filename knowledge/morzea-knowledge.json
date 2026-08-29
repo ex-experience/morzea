@@ -1,0 +1,99 @@
+{
+  "version": "2026-08-29",
+  "brand": {
+    "name": "MORZÉA",
+    "arabic": "مورزيا",
+    "category": "Luxury Moroccan Beauty & Hammam Ritual House",
+    "founding": "Founded in Saudi Arabia",
+    "root": "Rooted in Moroccan beauty rituals and provenance",
+    "descriptor": "Moroccan Rituals · Saudi House",
+    "campaign_line": "TWO KINGDOMS. ONE BEAUTY HOUSE.",
+    "promise": "Authentic Moroccan ritual elevated with precision.",
+    "ritual": [
+      "SOFTEN",
+      "REVEAL",
+      "NOURISH"
+    ],
+    "voice": [
+      "Sensory",
+      "Assured",
+      "Cultured",
+      "Precise"
+    ],
+    "origin_principle": "Origin is not decoration. Origin is proof.",
+    "name_story": {
+      "status": "brand-defined, not historical etymology",
+      "summary": "MORZÉA is a coined proprietary name. MOR intentionally opens toward Morocco/origin; ZÉA is a lyrical proprietary ending expressing movement, femininity and transformation.",
+      "never_claim": "Never present MORZÉA as an ancient or historical name for Morocco."
+    }
+  },
+  "products": {
+    "01": {
+      "ritual": "SOFTEN",
+      "name": "Moroccan Black Soap",
+      "arabic": "الصابون البلدي المغربي",
+      "size": "200 g",
+      "website_price_sar": 110,
+      "role": "Preparation/softening step before Kessa exfoliation.",
+      "claim_status": "Specific origin, formula, purity, manufacturing and efficacy claims require final supplier/lab/regulatory documentation."
+    },
+    "02": {
+      "ritual": "REVEAL",
+      "name": "Moroccan Kessa",
+      "arabic": "الليفة المغربية الأصلية",
+      "size": "1 glove",
+      "website_price_sar": 65,
+      "role": "Controlled physical exfoliation step after rinsing the black soap.",
+      "claim_status": "Textile composition, place of manufacture and origin claims require approved production sample and supplier declaration."
+    },
+    "03": {
+      "ritual": "NOURISH",
+      "name": "Organic Moroccan Argan Oil",
+      "arabic": "زيت الأرجان المغربي العضوي",
+      "size": "30 ml",
+      "website_price_sar": 180,
+      "role": "Closing cosmetic oil step; a few drops pressed onto clean, slightly damp skin.",
+      "claim_status": "Organic, Moroccan-origin, purity and extraction-method claims require recognized certification and final product documentation."
+    }
+  },
+  "claims_policy": [
+    "Do not publish unverified origin, purity, organic, clinical, sustainability or efficacy claims.",
+    "Do not claim MORZÉA is a historical Moroccan word/name.",
+    "Do not position cosmetics as medical treatment.",
+    "Use 'Authentic Moroccan', 'Made in Morocco', '100% Pure Argan Oil', 'Organic', 'Cold Pressed' or equivalent SKU claims only when final evidence supports them.",
+    "For medical or dermatological conditions, provide general cosmetic information only and recommend professional advice when appropriate."
+  ],
+  "approved_brand_story": {
+    "ar": "MORZÉA دار جمال سعودية التأسيس، مغربية الجذور، تعيد تقديم طقوس الحمّام والعناية المغربية ضمن تجربة معاصرة تقوم على الأصل والحرفة واللمس.",
+    "en": "MORZÉA is a Saudi-founded beauty house devoted to Moroccan ritual. The house begins with origin, craft and ingredient, then elevates each step through modern design, precise education and a sensorial experience made to be repeated."
+  },
+  "research_sources": [
+    {
+      "type": "official_cultural",
+      "title": "UNESCO — Argan, practices and know-how concerning the argan tree",
+      "url": "https://ich.unesco.org/en/RL/argan-practices-and-know-how-concerning-the-argan-tree-00955"
+    },
+    {
+      "type": "official_agriculture",
+      "title": "FAO — Argan-based system in Morocco",
+      "url": "https://www.fao.org/giahs/giahs-around-the-world/morocco-argan-based-system/en"
+    },
+    {
+      "type": "peer_reviewed",
+      "title": "Argan Oil: Chemical Composition, Extraction Process, and Quality Control",
+      "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8850956/"
+    },
+    {
+      "type": "peer_reviewed",
+      "title": "The Importance of Argan Oil in Medicine and Cosmetology",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/39458566/"
+    }
+  ],
+  "source_priority": [
+    "MORZÉA canonical brand knowledge for brand-specific facts",
+    "Official Moroccan authorities and regulators for Morocco-specific legal/origin facts",
+    "Saudi Food and Drug Authority for Saudi cosmetic/regulatory matters",
+    "UNESCO, FAO, WIPO and other UN agencies for cultural/origin context",
+    "Peer-reviewed scientific literature for cosmetic/scientific questions"
+  ]
+}
