@@ -1,21 +1,12 @@
-/*
- * MORZÉA — Firebase + AI public configuration
- * ------------------------------------------------------------
- * IMPORTANT:
- * - Firebase Web config is public by design, but Firestore access
- *   MUST be protected by Authentication + Security Rules.
- * - NEVER place your OpenAI secret key in this file.
- * - The OpenAI secret key belongs only in Google Apps Script
- *   Project Settings > Script properties.
- */
 window.MORZEA_CONFIG = Object.freeze({
   firebase: {
-    apiKey: "PASTE_FIREBASE_API_KEY",
-    authDomain: "ex-experience.firebaseapp.com",
-    projectId: "ex-experience",
-    storageBucket: "PASTE_FIREBASE_STORAGE_BUCKET",
-    messagingSenderId: "PASTE_FIREBASE_MESSAGING_SENDER_ID",
-    appId: "PASTE_FIREBASE_APP_ID"
+    apiKey: "AIzaSyCs-gBedeVDKUs5ZxNheiQTrDsBehNbB6Y",
+    authDomain: "ex-experience-morzea.firebaseapp.com",
+    projectId: "ex-experience-morzea",
+    storageBucket: "ex-experience-morzea.firebasestorage.app",
+    messagingSenderId: "208965841703",
+    appId: "1:208965841703:web:e84ed83392a0ccd88fa02",
+    measurementId: "G-CT98FYFHQI"
   },
 
   agent: {
