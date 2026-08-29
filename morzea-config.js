@@ -6,15 +6,17 @@
 
 window.MORZEA_CONFIG = Object.freeze({
 
-  firebase: {
-    apiKey: "AIzaSyCs-gBedeVDKUs5ZxNheiQTrDsBehNbB6Y",
-    authDomain: "ex-experience-morzea.firebaseapp.com",
-    projectId: "ex-experience-morzea",
-    storageBucket: "ex-experience-morzea.firebasestorage.app",
-    messagingSenderId: "208965841703",
-    appId: "1:208965841703:web:e84ed83392a0ccd88fa02",
-    measurementId: "G-CT98FYFHQI"
-  },
+ firebase: {
+  apiKey: "AIzaSyCs-gBedeVDKUs5ZxNheiQTrDsBehNbB6Y",
+  authDomain: "ex-experience-morzea.firebaseapp.com",
+  projectId: "ex-experience-morzea",
+  storageBucket: "ex-experience-morzea.firebasestorage.app",
+  messagingSenderId: "208965841703",
+  appId: "1:208965841703:web:e84ed83392a0ccd88fa02",
+  measurementId: "G-CT98FYFHQI",
+
+  databaseId: "default"
+},
 
   agent: {
     enabled: true,
