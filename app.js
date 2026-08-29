@@ -5,12 +5,12 @@ const P={
   name:{en:'Moroccan Black Soap',ar:'الصابون البلدي المغربي'},
   sub:{en:'Authentic Moroccan Beldi soap · 200 g',ar:'صابون بلدي مغربي أصلي فاخر · 200 غ'},
   price:110,
-  img:'assets/img/morzea-soap-01.jpg',
+  img:'assets/img/morzea-soap-01.jpg.png',
   fallback:'assets/img/product-soap.jpg',
   images:[
-   'assets/img/morzea-soap-01.jpg',
-   'assets/img/morzea-soap-02.jpg',
-   'assets/img/morzea-soap-03.jpg'
+   'assets/img/morzea-soap-01.jpg.png',
+   'assets/img/morzea-soap-02.jpg.png',
+   'assets/img/morzea-soap-03.jpg.png'
   ],
   accent:'#d10a62',
   desc:{
@@ -32,12 +32,12 @@ const P={
   name:{en:'Moroccan Kessa',ar:'الليفة المغربية الأصلية'},
   sub:{en:'Premium exfoliating Kessa · 1 glove',ar:'ليفة كيسا مغربية فاخرة للتقشير · قطعة واحدة'},
   price:65,
-  img:'assets/img/morzea-kessa-01.jpg',
+  img:'assets/img/morzea-kessa-01.jpg.png',
   fallback:'assets/img/product-kessa.jpg',
   images:[
-   'assets/img/morzea-kessa-01.jpg',
-   'assets/img/morzea-kessa-02.jpg',
-   'assets/img/morzea-kessa-03.jpg'
+   'assets/img/morzea-kessa-01.jpg.png',
+   'assets/img/morzea-kessa-02.jpg.png',
+   'assets/img/morzea-kessa-03.jpg.png'
   ],
   accent:'#e66c1c',
   desc:{
@@ -59,12 +59,12 @@ const P={
   name:{en:'Organic Moroccan Argan Oil',ar:'زيت الأرجان المغربي العضوي'},
   sub:{en:'Pure facial argan oil · 30 ml',ar:'زيت أرجان نقي مخصص للبشرة · 30 مل'},
   price:180,
-  img:'assets/img/morzea-argan-01.jpg',
+  img:'assets/img/morzea-argan-01.jpg.png',
   fallback:'assets/img/product-argan.jpg',
   images:[
-   'assets/img/morzea-argan-01.jpg',
-   'assets/img/morzea-argan-02.jpg',
-   'assets/img/morzea-argan-03.jpg'
+   'assets/img/morzea-argan-01.jpg.png',
+   'assets/img/morzea-argan-02.jpg.png',
+   'assets/img/morzea-argan-03.jpg.png'
   ],
   accent:'#0c776c',
   desc:{
@@ -340,7 +340,7 @@ function renderCollectionEditorial(){
  block.innerHTML=`
   <div class="product-collection-editorial__media">
    <img
-    src="assets/img/morzea-ritual-collection-01.jpg"
+    src="assets/img/morzea-ritual-collection-01.jpg.png"
     alt="MORZÉA complete Moroccan ritual collection"
     loading="lazy"
     decoding="async"

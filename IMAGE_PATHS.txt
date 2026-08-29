@@ -1,0 +1,24 @@
+MORZÉA — UPDATED IMAGE PATHS
+
+SOAP
+assets/img/morzea-soap-01.jpg.png
+assets/img/morzea-soap-02.jpg.png
+assets/img/morzea-soap-03.jpg.png
+
+KESSA
+assets/img/morzea-kessa-01.jpg.png
+assets/img/morzea-kessa-02.jpg.png
+assets/img/morzea-kessa-03.jpg.png
+
+ARGAN
+assets/img/morzea-argan-01.jpg.png
+assets/img/morzea-argan-02.jpg.png
+assets/img/morzea-argan-03.jpg.png
+
+FULL COLLECTION
+assets/img/morzea-ritual-collection-01.jpg.png
+
+PRICES PRESERVED
+Soap: 110 SAR
+Kessa: 65 SAR
+Argan Oil: 180 SAR
