@@ -66,7 +66,7 @@ window.MORZEA_CONFIG = Object.freeze({
     enabled: true,
 
     endpoint:
-      "PASTE_APPS_SCRIPT_WEB_APP_EXEC_URL",
+      "https://script.google.com/macros/s/AKfycbykPnklnDncTFkuGI_R3j_AElenLGXOryDLgNkNxw0oTP9hsK0wcY8Qw_DfT_nTpoWW/exec",
 
     siteId:
       "morzea-web-v1",
