@@ -223,7 +223,31 @@ async function init() {
         pageViews: increment(1)
       };
 
-      await setDoc(doc(state.db, `${PREFIX}_Visitors`, state.sessionId), visitor, { merge: true });
+     try {
+
+  await setDoc(
+    doc(state.db, `${PREFIX}_Visitors`, state.sessionId),
+    visitor,
+    { merge: true }
+  );
+
+  console.log(
+    "[MORZÉA Firebase] Visitor saved",
+    state.sessionId,
+    user.uid
+  );
+
+} catch (err) {
+
+  console.error(
+    "[MORZÉA Firebase] Visitor write failed:",
+    err.code,
+    err.message,
+    err
+  );
+
+  return;
+}
 
       await trackNow("page_view", {
         title: document.title,
