@@ -1,17 +1,23 @@
-MORZEA CINEMATIC HERO UPDATE
+MORZÉA — 03 / NOURISH CINEMATIC UPDATE
 
-Replace repository root files:
+Replace in repository root:
 - index.html
 - styles.css
 
-Upload new assets:
-- assets/video/morzea-hero.mp4
-- assets/img/morzea-hero-poster.jpg
+Upload these four images to:
+assets/img/
 
-Keep your existing app.js unchanged.
-Keep the existing product and editorial images already referenced by app.js/index.html.
+Exact filenames:
+1. morzea-nourish-hero.jpg
+2. morzea-nourish-ritual.jpg
+3. morzea-nourish-macro.jpg
+4. morzea-nourish-product.jpg
 
-GitHub Pages URL:
+No app.js change is required.
+
+After commit:
 https://ex-experience.github.io/morzea/
 
-After commit/deploy, hard refresh with Ctrl+F5.
+Hard refresh:
+Windows: Ctrl + F5
+Mac: Cmd + Shift + R
