@@ -1175,10 +1175,6 @@
        JAVASCRIPT
        ========================================================= -->
 
-  <script src="morzea-config.js"></script>
-  <script src="app.js"></script>
-  <script type="module" src="morzea-firebase.js"></script>
-  <script type="module" src="morzea-agent.js"></script>
 
   <script>
     /* MORZÉA cinematic hero */
@@ -1250,6 +1246,17 @@
     });
   </script>
 
+
+
+  <!-- =========================================================
+       MORZÉA CORE + FIREBASE + AI
+       Loaded last to preserve all existing page behavior
+       ========================================================= -->
+
+  <script src="morzea-config.js"></script>
+  <script src="app.js"></script>
+  <script type="module" src="morzea-firebase.js"></script>
+  <script type="module" src="morzea-agent.js"></script>
 
 </body>
 
