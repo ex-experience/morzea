@@ -1,25 +1,69 @@
-window.MORZEA_CONFIG = Object.freeze({
-  firebase: {
-    apiKey: "AIzaSyCs-gBedeVDKUs5ZxNheiQTrDsBehNbB6Y",
-    authDomain: "ex-experience-morzea.firebaseapp.com",
-    projectId: "ex-experience-morzea",
-    storageBucket: "ex-experience-morzea.firebasestorage.app",
-    messagingSenderId: "208965841703",
-    appId: "1:208965841703:web:e84ed83392a0ccd88fa02",
-    measurementId: "G-CT98FYFHQI"
-  },
+rules_version = '2';
 
-  agent: {
-    enabled: true,
-    endpoint: "PASTE_APPS_SCRIPT_WEB_APP_EXEC_URL",
-    siteId: "morzea-web-v1",
-    maxHistoryMessages: 8,
-    maxMessageChars: 2500
-  },
+service cloud.firestore {
+  match /databases/{database}/documents {
 
-  telemetry: {
-    enabled: true,
-    collectionPrefix: "MORZEA",
-    consentVersion: "2026-08-29"
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function ownsIncoming() {
+      return signedIn()
+        && request.resource.data.uid == request.auth.uid;
+    }
+
+    function ownsExisting() {
+      return signedIn()
+        && resource.data.uid == request.auth.uid;
+    }
+
+    // MORZÉA visitor/session record
+    match /MORZEA_Visitors/{sessionId} {
+      allow create: if ownsIncoming();
+
+      allow update: if ownsExisting()
+        && request.resource.data.uid == resource.data.uid;
+
+      allow read, delete: if false;
+    }
+
+    // Interaction / analytics events
+    match /MORZEA_Events/{eventId} {
+      allow create: if ownsIncoming();
+      allow read, update, delete: if false;
+    }
+
+    // Voluntary customer leads / newsletter
+    match /MORZEA_Leads/{leadId} {
+      allow create: if ownsIncoming();
+      allow read, update, delete: if false;
+    }
+
+    // AI concierge session metadata
+    match /MORZEA_AI_Sessions/{sessionId} {
+      allow create: if ownsIncoming();
+
+      allow update: if ownsExisting()
+        && request.resource.data.uid == resource.data.uid;
+
+      allow read, delete: if false;
+    }
+
+    // AI conversation messages
+    match /MORZEA_AI_Messages/{messageId} {
+      allow create: if ownsIncoming();
+      allow read, update, delete: if false;
+    }
+
+    // Front-end errors
+    match /MORZEA_Errors/{errorId} {
+      allow create: if ownsIncoming();
+      allow read, update, delete: if false;
+    }
+
+    // Everything else denied
+    match /{document=**} {
+      allow read, write: if false;
+    }
   }
-});
+}
