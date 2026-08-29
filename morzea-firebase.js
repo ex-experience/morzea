@@ -194,9 +194,10 @@ async function init() {
   }
 
   try {
-    const app = getApps().length ? getApps()[0] : initializeApp(firebaseCfg);
-    state.db = getFirestore(app);
-    state.auth = getAuth(app);
+  state.db = getFirestore(
+    app,
+  firebaseCfg.databaseId || "default"
+);
 
     onAuthStateChanged(state.auth, async user => {
       if (!user) return;
