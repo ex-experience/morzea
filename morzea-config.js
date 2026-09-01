@@ -66,7 +66,7 @@ window.MORZEA_CONFIG = Object.freeze({
     enabled: true,
 
     endpoint:
-      "https://script.google.com/macros/s/AKfycbykPnklnDncTFkuGI_R3j_AElenLGXOryDLgNkNxw0oTP9hsK0wcY8Qw_DfT_nTpoWW/exec",
+      "https://lcvogrhjvsayeztofspp.supabase.co/functions/v1/chat",
 
     siteId:
       "morzea-web-v1",
