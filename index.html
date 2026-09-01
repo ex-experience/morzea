@@ -182,6 +182,9 @@
     "inLanguage": ["en", "ar"]
   }
   </script>
+<!-- MORZEA-AI-HEAD -->
+<link rel="stylesheet" href="./chat-widget.css">
+<!-- /MORZEA-AI-HEAD -->
 </head>
 
 
@@ -1269,6 +1272,45 @@
   <script type="module" src="morzea-agent.js"></script>
 
   <script src="./production-enhancements.js" defer></script>
+<!-- MORZEA-AI-BODY -->
+<button id="morzea-chat-launcher" type="button"
+        aria-haspopup="dialog"
+        aria-controls="morzea-chat-dialog">
+  مساعد المنتجات
+</button>
+
+<dialog id="morzea-chat-dialog"
+        aria-labelledby="morzea-chat-title"
+        dir="rtl">
+  <section class="morzea-chat">
+    <header class="morzea-chat__header">
+      <strong id="morzea-chat-title">مساعد MORZÉA</strong>
+      <button id="morzea-chat-close"
+              class="morzea-chat__close"
+              type="button"
+              aria-label="إغلاق">×</button>
+    </header>
+
+    <div id="morzea-chat-log"
+         role="log"
+         aria-live="polite"
+         aria-relevant="additions"></div>
+
+    <form id="morzea-chat-form">
+      <label for="morzea-chat-input" hidden>اكتب رسالتك</label>
+      <input id="morzea-chat-input"
+             maxlength="1000"
+             autocomplete="off"
+             required
+             placeholder="اسأل عن منتجاتنا">
+      <button id="morzea-chat-submit" type="submit">إرسال</button>
+    </form>
+  </section>
+</dialog>
+
+<script src="./chat-config.js"></script>
+<script src="./chat-widget.js" defer></script>
+<!-- /MORZEA-AI-BODY -->
 </body>
 
 </html>
