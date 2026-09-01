@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ex-experience.github.io/morzea/sitemap.xml
