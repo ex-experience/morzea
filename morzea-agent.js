@@ -1,25 +1,22 @@
-const cfg = window.MORZEA_CONFIG || {};
-const agentCfg = cfg.agent || {};
-const telemetry = () => window.MORZEA_TELEMETRY;
+(() => {
+  "use strict";
 
-function isConfigured() {
-  return agentCfg.enabled !== false &&
-    typeof agentCfg.endpoint === "string" &&
-    agentCfg.endpoint.startsWith("https://script.google.com/macros/s/") &&
-    agentCfg.endpoint.endsWith("/exec");
-}
+  const config = window.MORZEA_CONFIG?.agent || {};
+  const endpoint = String(config.endpoint || "");
+  const allowedEndpoint =
+    /^https:\/\/[a-z0-9]+\.supabase\.co\/functions\/v1\/chat$/.test(endpoint);
 
-if (!isConfigured()) {
-  console.info("[MORZÉA Agent] Waiting for deployed Apps Script /exec URL.");
-} else {
-  boot();
-}
+  if (config.enabled === false || !allowedEndpoint) {
+    console.info("[MORZÉA Agent] Backend is not configured.");
+    return;
+  }
 
-function boot() {
   const root = document.createElement("div");
   root.className = "morzea-ai";
   root.innerHTML = `
-    <button class="morzea-ai__launcher" type="button" aria-label="Open MORZÉA concierge" aria-expanded="false">
+    <button class="morzea-ai__launcher" type="button"
+      aria-label="فتح مساعد MORZÉA"
+      aria-expanded="false">
       <span class="morzea-ai__mark">M</span>
       <span class="morzea-ai__launcher-copy">
         <b>MORZÉA CONCIERGE</b>
@@ -28,36 +25,50 @@ function boot() {
       <span class="morzea-ai__status" aria-hidden="true"></span>
     </button>
 
-    <section class="morzea-ai__panel" aria-label="MORZÉA intelligent concierge" aria-hidden="true">
+    <section class="morzea-ai__panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="morzea-agent-title"
+      aria-hidden="true">
+
       <header class="morzea-ai__head">
         <div>
-          <span class="morzea-ai__eyebrow">MORZÉA / INTELLIGENT CONCIERGE</span>
-          <h2>MORZÉA</h2>
+          <span class="morzea-ai__eyebrow">
+            MORZÉA / INTELLIGENT CONCIERGE
+          </span>
+          <h2 id="morzea-agent-title">MORZÉA</h2>
           <p>Origin. Ritual. Product knowledge.</p>
         </div>
-        <button class="morzea-ai__close" type="button" aria-label="Close">×</button>
+        <button class="morzea-ai__close" type="button"
+          aria-label="إغلاق المساعد">×</button>
       </header>
 
-      <div class="morzea-ai__messages" role="log" aria-live="polite"></div>
+      <div class="morzea-ai__messages"
+        role="log"
+        aria-live="polite"
+        aria-relevant="additions"></div>
 
       <div class="morzea-ai__quick"></div>
 
       <form class="morzea-ai__form">
-        <textarea
+        <label class="morzea-ai__sr-only" for="morzea-agent-input">
+          اكتب رسالتك
+        </label>
+        <textarea id="morzea-agent-input"
           class="morzea-ai__input"
           rows="1"
-          maxlength="${Number(agentCfg.maxMessageChars || 2500)}"
-          placeholder="Ask about MORZÉA, Moroccan ritual, argan, black soap or Kessa..."
-          aria-label="Message"
-        ></textarea>
-        <button class="morzea-ai__send" type="submit" aria-label="Send">
-          <span>→</span>
+          maxlength="1000"
+          autocomplete="off"
+          placeholder="اسأل عن منتجات MORZÉA"></textarea>
+
+        <button class="morzea-ai__send" type="submit"
+          aria-label="إرسال">
+          <span aria-hidden="true">→</span>
         </button>
       </form>
 
       <p class="morzea-ai__privacy">
-        Conversations may be recorded in MORZÉA service logs to improve support.
-        Product-origin, organic and efficacy claims remain subject to final documentation.
+        معلومات المنتجات إرشادية ولا تمثل تشخيصاً أو نصيحة طبية.
       </p>
     </section>
   `;
@@ -66,226 +77,205 @@ function boot() {
 
   const launcher = root.querySelector(".morzea-ai__launcher");
   const panel = root.querySelector(".morzea-ai__panel");
-  const close = root.querySelector(".morzea-ai__close");
+  const closeButton = root.querySelector(".morzea-ai__close");
   const messages = root.querySelector(".morzea-ai__messages");
+  const quick = root.querySelector(".morzea-ai__quick");
   const form = root.querySelector(".morzea-ai__form");
   const input = root.querySelector(".morzea-ai__input");
   const send = root.querySelector(".morzea-ai__send");
-  const quick = root.querySelector(".morzea-ai__quick");
 
-  const historyKey = "morzea-ai-history-v1";
-  let history = loadHistory();
+  const storageKey = "morzea-agent-session-v2";
+  let history = [];
 
-  function lang() {
-    return document.documentElement.lang === "ar" ? "ar" : "en";
+  try {
+    history = JSON.parse(sessionStorage.getItem(storageKey) || "[]");
+    if (!Array.isArray(history)) history = [];
+    history = history.slice(-8);
+  } catch {
+    history = [];
   }
 
-  function texts() {
-    if (lang() === "ar") {
-      return {
-        welcome: "مرحبًا بك في MORZÉA. اسألني عن الطقس المغربي، منتجات الدار، الأرجان، الصابون البلدي أو الليفة، وسأميز بوضوح بين قصة العلامة والحقائق التي تتطلب مصدرًا أو توثيقًا.",
-        placeholder: "اسأل عن MORZÉA أو الطقس المغربي أو المنتجات...",
-        quick: [
-          "ما هو طقس MORZÉA من 3 خطوات؟",
-          "ما الفرق بين زيت الأرجان التجميلي والغذائي؟",
-          "كيف أستخدم الصابون والليفة معًا؟"
-        ],
-        error: "تعذر الوصول إلى المساعد الآن. حاول مرة أخرى بعد لحظات.",
-        thinking: "أتحقق من المعلومة…"
-      };
-    }
-    return {
-      welcome: "Welcome to MORZÉA. Ask about the Moroccan ritual, the house, argan oil, black soap or Kessa. I distinguish brand narrative from facts that require evidence.",
-      placeholder: "Ask about MORZÉA, Moroccan ritual or products...",
-      quick: [
-        "What is the 3-step MORZÉA ritual?",
-        "Cosmetic vs culinary argan oil?",
-        "How do I use black soap with Kessa?"
-      ],
-      error: "The concierge is temporarily unavailable. Please try again shortly.",
-      thinking: "Checking the evidence…"
-    };
+  function isArabic() {
+    return document.documentElement.lang === "ar";
   }
 
-  function refreshLanguage() {
-    const t = texts();
-    input.placeholder = t.placeholder;
-    quick.innerHTML = "";
-    t.quick.forEach(label => {
-      const btn = document.createElement("button");
-      btn.type = "button";
-      btn.textContent = label;
-      btn.addEventListener("click", () => {
-        input.value = label;
-        input.focus();
-      });
-      quick.appendChild(btn);
-    });
-  }
-
-  function loadHistory() {
-    try {
-      const parsed = JSON.parse(localStorage.getItem(historyKey) || "[]");
-      return Array.isArray(parsed) ? parsed.slice(-Number(agentCfg.maxHistoryMessages || 8)) : [];
-    } catch (_) {
-      return [];
-    }
+  function text() {
+    return isArabic()
+      ? {
+          welcome:
+            "مرحباً بك في MORZÉA. اسألني عن زيت الأركان أو الصابون البلدي أو الليفة المغربية الفاخرة.",
+          error:
+            "تعذر الوصول إلى المساعد مؤقتاً. يرجى المحاولة مرة أخرى.",
+          timeout:
+            "استغرق الرد وقتاً أطول من المتوقع. حاول مجدداً.",
+          thinking: "جارٍ تحضير الإجابة…",
+          placeholder: "اسأل عن منتجات MORZÉA",
+          quick: [
+            "ما سعر زيت الأركان؟",
+            "كيف أستخدم الصابون البلدي والليفة؟",
+            "ما هو طقس MORZÉA المغربي؟"
+          ]
+        }
+      : {
+          welcome:
+            "Welcome to MORZÉA. Ask about argan oil, Moroccan black soap, or the luxury Kessa.",
+          error:
+            "The concierge is temporarily unavailable. Please try again.",
+          timeout:
+            "The response took too long. Please try again.",
+          thinking: "Preparing the answer…",
+          placeholder: "Ask about MORZÉA products",
+          quick: [
+            "What is the price of argan oil?",
+            "How do I use black soap and Kessa?",
+            "What is the MORZÉA ritual?"
+          ]
+        };
   }
 
   function saveHistory() {
-    const max = Number(agentCfg.maxHistoryMessages || 8);
-    history = history.slice(-max);
-    localStorage.setItem(historyKey, JSON.stringify(history));
+    history = history.slice(-8);
+    sessionStorage.setItem(storageKey, JSON.stringify(history));
+  }
+
+  function addMessage(role, value, save = true) {
+    const item = document.createElement("div");
+    item.className = `morzea-ai__message morzea-ai__message--${role}`;
+    item.textContent = value;
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+
+    if (save) {
+      history.push({ role, text: value });
+      saveHistory();
+    }
+
+    return item;
+  }
+
+  function refreshLanguage() {
+    const content = text();
+    input.placeholder = content.placeholder;
+    root.dir = isArabic() ? "rtl" : "ltr";
+    quick.replaceChildren();
+
+    content.quick.forEach(label => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = label;
+      button.addEventListener("click", () => {
+        input.value = label;
+        input.focus();
+      });
+      quick.appendChild(button);
+    });
   }
 
   function openPanel() {
     root.classList.add("is-open");
     panel.setAttribute("aria-hidden", "false");
     launcher.setAttribute("aria-expanded", "true");
-    telemetry()?.track?.("ai_open");
-    input.focus();
+    document.body.classList.add("morzea-agent-open");
+    setTimeout(() => input.focus(), 50);
   }
 
   function closePanel() {
     root.classList.remove("is-open");
     panel.setAttribute("aria-hidden", "true");
     launcher.setAttribute("aria-expanded", "false");
-    telemetry()?.track?.("ai_close");
+    document.body.classList.remove("morzea-agent-open");
+    launcher.focus();
   }
 
-  function message(role, text, sources = []) {
-    const item = document.createElement("article");
-    item.className = `morzea-ai__message morzea-ai__message--${role}`;
-
-    const body = document.createElement("div");
-    body.className = "morzea-ai__bubble";
-    body.textContent = text;
-    item.appendChild(body);
-
-    if (Array.isArray(sources) && sources.length) {
-      const sourceBox = document.createElement("div");
-      sourceBox.className = "morzea-ai__sources";
-
-      const title = document.createElement("span");
-      title.textContent = lang() === "ar" ? "المصادر" : "Sources";
-      sourceBox.appendChild(title);
-
-      sources.slice(0, 6).forEach(source => {
-        if (!source?.url) return;
-        const a = document.createElement("a");
-        a.href = source.url;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.textContent = source.title || new URL(source.url).hostname;
-        sourceBox.appendChild(a);
-      });
-
-      item.appendChild(sourceBox);
-    }
-
-    messages.appendChild(item);
-    messages.scrollTop = messages.scrollHeight;
-    return item;
-  }
-
-  async function ask(text) {
-    const t = texts();
-    const cleaned = String(text || "").trim().slice(0, Number(agentCfg.maxMessageChars || 2500));
-    if (!cleaned) return;
-
-    input.value = "";
-    message("user", cleaned);
-    telemetry()?.track?.("ai_question", { chars: cleaned.length });
-    telemetry()?.aiMessage?.("user", cleaned);
-
-    const waiting = message("assistant", t.thinking);
-    waiting.classList.add("is-thinking");
-
-    send.disabled = true;
-    input.disabled = true;
+  async function requestReply(message, attempt = 0) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 30000);
 
     try {
-      const requestHistory = history.slice(-Number(agentCfg.maxHistoryMessages || 8));
-
-      const response = await fetch(agentCfg.endpoint, {
+      const response = await fetch(endpoint, {
         method: "POST",
-        redirect: "follow",
-        headers: {
-          "Content-Type": "text/plain;charset=utf-8"
-        },
-        body: JSON.stringify({
-          site: agentCfg.siteId || "morzea-web-v1",
-          message: cleaned,
-          lang: lang(),
-          sessionId: telemetry()?.sessionId || localStorage.getItem("morzea-session-id") || "",
-          history: requestHistory,
-          page: {
-            title: document.title,
-            url: location.href,
-            path: location.pathname
-          }
-        })
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+        signal: controller.signal
       });
 
-      const data = await response.json();
+      if (response.status >= 500 && attempt === 0) {
+        await new Promise(resolve => setTimeout(resolve, 900));
+        return requestReply(message, 1);
+      }
 
-      if (!response.ok || !data.ok || !data.answer) {
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
         throw new Error(data.error || `HTTP ${response.status}`);
       }
 
-      waiting.remove();
-      message("assistant", data.answer, data.sources || []);
+      if (!data.reply || typeof data.reply !== "string") {
+        throw new Error("Empty response");
+      }
 
-      history.push({ role: "user", content: cleaned });
-      history.push({ role: "assistant", content: data.answer });
-      saveHistory();
-
-      telemetry()?.aiMessage?.("assistant", data.answer, {
-        model: data.model || "",
-        sourceCount: Array.isArray(data.sources) ? data.sources.length : 0
-      });
-      telemetry()?.track?.("ai_answer", {
-        model: data.model || "",
-        sourceCount: Array.isArray(data.sources) ? data.sources.length : 0
-      });
-    } catch (err) {
-      console.error("[MORZÉA Agent]", err);
-      waiting.remove();
-      message("assistant", t.error);
-      telemetry()?.track?.("ai_error", { message: err.message || String(err) });
+      return data.reply.trim();
+    } catch (error) {
+      if (error.name === "AbortError" && attempt === 0) {
+        return requestReply(message, 1);
+      }
+      throw error;
     } finally {
-      send.disabled = false;
-      input.disabled = false;
-      input.focus();
+      clearTimeout(timer);
     }
   }
 
-  launcher.addEventListener("click", () => {
-    root.classList.contains("is-open") ? closePanel() : openPanel();
-  });
+  launcher.addEventListener("click", openPanel);
+  closeButton.addEventListener("click", closePanel);
 
-  close.addEventListener("click", closePanel);
-
-  form.addEventListener("submit", event => {
-    event.preventDefault();
-    ask(input.value);
-  });
-
-  input.addEventListener("keydown", event => {
-    if (event.key === "Enter" && !event.shiftKey) {
-      event.preventDefault();
-      form.requestSubmit();
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && root.classList.contains("is-open")) {
+      closePanel();
     }
   });
 
-  const observer = new MutationObserver(refreshLanguage);
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ["lang"] });
+  form.addEventListener("submit", async event => {
+    event.preventDefault();
+
+    const message = input.value.trim();
+    if (!message || send.disabled) return;
+
+    addMessage("user", message);
+    input.value = "";
+    input.disabled = true;
+    send.disabled = true;
+    panel.setAttribute("aria-busy", "true");
+
+    const thinking = addMessage("assistant", text().thinking, false);
+
+    try {
+      const reply = await requestReply(message);
+      thinking.remove();
+      addMessage("assistant", reply);
+    } catch (error) {
+      thinking.remove();
+      addMessage(
+        "assistant",
+        error.name === "AbortError" ? text().timeout : text().error
+      );
+    } finally {
+      input.disabled = false;
+      send.disabled = false;
+      panel.removeAttribute("aria-busy");
+      input.focus();
+    }
+  });
+
+  history.forEach(item => addMessage(item.role, item.text, false));
+
+  if (!history.length) {
+    addMessage("assistant", text().welcome);
+  }
 
   refreshLanguage();
 
-  if (!history.length) {
-    message("assistant", texts().welcome);
-  } else {
-    history.slice(-6).forEach(item => message(item.role === "user" ? "user" : "assistant", item.content));
-  }
-}
+  new MutationObserver(refreshLanguage).observe(
+    document.documentElement,
+    { attributes: true, attributeFilter: ["lang", "dir"] }
+  );
+})();
